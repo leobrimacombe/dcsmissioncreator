@@ -60,6 +60,11 @@ function App() {
     }
   }
 
+  const commitMsg = __COMMIT_MESSAGE__
+  const commitSha = __COMMIT_SHA__
+  const repoUrl = 'https://github.com/leobrimacombe/dcsmissioncreator'
+  const commitUrl = commitSha ? `${repoUrl}/commit/${commitSha}` : repoUrl
+
   return (
     <div className="App" style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
       <h1>Générateur de Mission DCS ✈️</h1>
@@ -128,6 +133,12 @@ function App() {
         {succes && <p style={{ color: 'green', margin: 0 }}>✅ Mission générée et téléchargée !</p>}
         {erreur && <p style={{ color: 'red', margin: 0, fontSize: '0.85rem' }}>❌ {erreur}</p>}
       </form>
+
+      <footer style={{ marginTop: '3rem', fontSize: '0.75rem', opacity: 0.5, textAlign: 'center' }}>
+        <a href={commitUrl} target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>
+          Dernière maj : {commitMsg}
+        </a>
+      </footer>
     </div>
   )
 }
