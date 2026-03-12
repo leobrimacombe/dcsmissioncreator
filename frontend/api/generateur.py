@@ -1,9 +1,9 @@
 import logging
 logging.getLogger().setLevel(logging.CRITICAL)
-import datetime
 import dcs
 from dcs.planes import F_15C, Su_27, E_3A, A_50
 from dcs.vehicles import AirDefence
+from dcs.weather import Weather
 
 THEATRES = {
     "caucase": {
@@ -13,7 +13,7 @@ THEATRES = {
     },
     "golfe_persique": {
         "terrain": "PersianGulf",
-        "blue_airport": "Al Dhafra AB",
+        "blue_airport": "Al Dhafra AFB",
         "red_airport": "Bandar Abbas Intl",
     },
 }
@@ -27,15 +27,15 @@ HEURES = {
 
 def appliquer_meteo(m, meteo):
     if meteo == "nuageux":
-        m.weather.clouds.base = 1500
-        m.weather.clouds.density = 6
-        m.weather.clouds.thickness = 200
+        m.weather.clouds_base = 1500
+        m.weather.clouds_density = 6
+        m.weather.clouds_thickness = 200
     elif meteo == "orage":
-        m.weather.clouds.base = 1000
-        m.weather.clouds.density = 9
-        m.weather.clouds.thickness = 400
-        m.weather.clouds.iprecptns = 1
-        m.weather.wind.at_ground_level.speed = 8
+        m.weather.clouds_base = 1000
+        m.weather.clouds_density = 9
+        m.weather.clouds_thickness = 400
+        m.weather.clouds_iprecptns = Weather.Preceptions.Rain
+        m.weather.wind_at_ground.speed = 8
 
 def generer_mission(config):
     theatre = THEATRES.get(config.theatre, THEATRES["caucase"])
@@ -48,7 +48,7 @@ def generer_mission(config):
 
     # Heure de départ
     hour = HEURES.get(config.heure, 12)
-    m.start_time = datetime.datetime(2011, 6, 21, hour, 0)
+    m.start_time = m.start_time.replace(hour=hour, minute=0, second=0)
 
     # Météo
     appliquer_meteo(m, config.meteo)
