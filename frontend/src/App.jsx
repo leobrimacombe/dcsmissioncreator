@@ -28,7 +28,7 @@ function App() {
 
     try {
       // On tape sur ton API Python locale !
-      const response = await fetch('https://dcsmissioncreator.app/api/generer-mission', {
+      const response = await fetch('/api/generer-mission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(configMission)
