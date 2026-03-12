@@ -1,11 +1,12 @@
 import sys
 import os
+import traceback
 
 # Permet d'importer generateur.py qui est dans le même dossier api/
 sys.path.insert(0, os.path.dirname(__file__))
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from generateur import generer_mission
@@ -33,9 +34,12 @@ class MissionConfig(BaseModel):
 # ⚠️ La route doit inclure /api/ car Vercel transmet le chemin complet à FastAPI
 @app.post("/api/generer-mission")
 async def creer_mission_endpoint(config: MissionConfig):
-    chemin_fichier = generer_mission(config)
-    return FileResponse(
-        path=chemin_fichier,
-        filename="Black_Sea_Iron_Storm.miz",
-        media_type="application/octet-stream",
-    )
+    try:
+        chemin_fichier = generer_mission(config)
+        return FileResponse(
+            path=chemin_fichier,
+            filename="mission.miz",
+            media_type="application/octet-stream",
+        )
+    except Exception:
+        return PlainTextResponse(traceback.format_exc(), status_code=500)
