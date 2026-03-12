@@ -1,6 +1,11 @@
 {
   "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/*.py": {
+      "runtime": "python3.12"
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" }
   ]
