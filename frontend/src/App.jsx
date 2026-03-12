@@ -27,8 +27,7 @@ function App() {
     }
 
     try {
-      // On tape sur ton API Python locale !
-      const response = await fetch('http://127.0.0.1:8000/generer-mission', {
+      const response = await fetch('/api/generer-mission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(configMission)
