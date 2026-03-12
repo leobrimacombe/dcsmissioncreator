@@ -55,5 +55,6 @@ def generer_mission(config):
         m.vehicle_group(russie, "SAM_Gudauta", AirDefence.ZSU_23_4_Shilka, base_russie.position)
 
     nom_fichier = "Black_Sea_Iron_Storm.miz"
-    m.save(nom_fichier)
-    return nom_fichier
+    chemin_complet = f"/tmp/{nom_fichier}" 
+    m.save(chemin_complet)
+    return chemin_complet
