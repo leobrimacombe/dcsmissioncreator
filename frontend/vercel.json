@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/generer-mission", "destination": "/api/index" }
+  ]
+}
