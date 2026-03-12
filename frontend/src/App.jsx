@@ -34,7 +34,10 @@ function App() {
         body: JSON.stringify(configMission)
       })
 
-      if (!response.ok) throw new Error("Erreur lors de la génération")
+      if (!response.ok) {
+        const text = await response.text()
+        throw new Error(`HTTP ${response.status} – ${text.slice(0, 300)}`)
+      }
 
       // --- MAGIE DU TÉLÉCHARGEMENT EN JS ---
       // On récupère le fichier binaire (.miz)
