@@ -26,6 +26,9 @@ class MissionConfig(BaseModel):
     nb_ennemis: int = Field(default=2, ge=1, le=16)
     activer_awacs: bool = Field(default=True)
     activer_sam: bool = Field(default=True)
+    meteo: str = Field(default="clair", pattern="^(clair|nuageux|orage)$")
+    heure: str = Field(default="jour", pattern="^(aube|jour|crepuscule|nuit)$")
+    theatre: str = Field(default="caucase", pattern="^(caucase|golfe_persique)$")
 
 # ⚠️ La route doit inclure /api/ car Vercel transmet le chemin complet à FastAPI
 @app.post("/api/generer-mission")
