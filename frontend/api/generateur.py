@@ -10,11 +10,13 @@ THEATRES = {
         "terrain": None,
         "blue_airport": "Kutaisi",
         "red_airport": "Gudauta",
+        "red_awacs_airport": None,
     },
     "golfe_persique": {
         "terrain": "PersianGulf",
         "blue_airport": "Al Dhafra AFB",
         "red_airport": "Bandar Abbas Intl",
+        "red_awacs_airport": "Lar",
     },
 }
 
@@ -58,6 +60,8 @@ def generer_mission(config):
 
     base_otan = m.terrain.airports[theatre["blue_airport"]]
     base_russie = m.terrain.airports[theatre["red_airport"]]
+    red_awacs_name = theatre.get("red_awacs_airport") or theatre["red_airport"]
+    base_russie_awacs = m.terrain.airports[red_awacs_name]
 
     fg_joueurs = m.flight_group_from_airport(
         country=usa,
@@ -89,7 +93,7 @@ def generer_mission(config):
             country=russie,
             name="AWACS_RUSSIE",
             aircraft_type=A_50,
-            airport=base_russie,
+            airport=base_russie_awacs,
             group_size=1
         )
 
